@@ -196,6 +196,13 @@ export class FlashStep extends React.PureComponent<
 		}
 	}
 
+	private hasListWarnings(drives: any[], image: any) {
+		if (drives.length === 0 || flashState.isFlashing()) {
+			return;
+		}
+		return constraints.hasListDriveImageCompatibilityStatus(drives, image);
+	}
+
 	private async tryFlash() {
 		const devices = selection.getSelectedDevices();
 		const image = selection.getImage();
@@ -208,10 +215,7 @@ export class FlashStep extends React.PureComponent<
 		if (drives.length === 0 || this.props.isFlashing) {
 			return;
 		}
-		const hasDangerStatus = constraints.hasListDriveImageCompatibilityStatus(
-			drives,
-			image,
-		);
+		const hasDangerStatus = this.hasListWarnings(drives, image);
 		if (hasDangerStatus) {
 			this.setState({ warningMessages: getWarningMessages(drives, image) });
 			return;
@@ -244,6 +248,10 @@ export class FlashStep extends React.PureComponent<
 							position={this.props.position}
 							disabled={this.props.shouldFlashStepBeDisabled}
 							cancel={imageWriter.cancel}
+							warning={this.hasListWarnings(
+								selection.getSelectedDrives(),
+								selection.getImage(),
+							)}
 							callback={() => {
 								this.tryFlash();
 							}}
