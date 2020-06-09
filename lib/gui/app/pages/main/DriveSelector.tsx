@@ -71,6 +71,21 @@ const getDriveSelectionStateSlice = () => ({
 	image: getImage(),
 });
 
+export const selectAllTargets = (modalTargets: DrivelistTarget[]) => {
+	const selectedDrivesFromState = getSelectedDrives();
+	if (_.isEmpty(modalTargets)) {
+		_.each(_.map(selectedDrivesFromState, 'device'), deselectDrive);
+	} else {
+		const deselected = _.reject(selectedDrivesFromState, (drive) =>
+			_.find(modalTargets, (row) => row.device === drive.device),
+		);
+		// select drives
+		_.each(_.map(modalTargets, 'device'), selectDrive);
+		// deselect drives
+		_.each(_.map(deselected, 'device'), deselectDrive);
+	}
+};
+
 interface DriveSelectorProps {
 	webviewShowing: boolean;
 	disabled: boolean;
@@ -137,19 +152,8 @@ export const DriveSelector = ({
 			{showTargetSelectorModal && (
 				<TargetSelectorModal
 					cancel={() => setShowTargetSelectorModal(false)}
-					close={(selectedTargets: DrivelistTarget[]) => {
-						const selectedDrives = getSelectedDrives();
-						if (_.isEmpty(selectedTargets)) {
-							_.each(_.map(selectedDrives, 'device'), deselectDrive);
-						} else {
-							const deselected = _.reject(selectedDrives, (drive) =>
-								_.find(selectedTargets, (row) => row.device === drive.device),
-							);
-							// select drives
-							_.each(_.map(selectedTargets, 'device'), selectDrive);
-							// deselect drives
-							_.each(_.map(deselected, 'device'), deselectDrive);
-						}
+					done={(modalTargets) => {
+						selectAllTargets(modalTargets);
 						setShowTargetSelectorModal(false);
 					}}
 				></TargetSelectorModal>
