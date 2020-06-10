@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.98
+## (2020-06-10)
+
+* Update rendition to v15.0.0 [Lorenzo Alberto Maria Ambrosi]
+* Merge unsafe mode with new target selector [Lorenzo Alberto Maria Ambrosi]
+* Rework target selector modal [Lorenzo Alberto Maria Ambrosi]
+
 # v1.5.97
 ## (2020-06-08)
 
