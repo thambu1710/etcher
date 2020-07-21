@@ -1,4 +1,4 @@
-# Etcher
+# Balena-Etcher
 
 > Flash OS images to SD cards & USB drives, safely and easily.
 
@@ -22,7 +22,7 @@ was written correctly and much more. It can also flash directly Raspberry Pi dev
 - macOS 10.10 (Yosemite) and later
 - Microsoft Windows 7 and later
 
-Note that Etcher will run on any platform officially supported by
+Note that Balena-Etcher will run on any platform officially supported by
 [Electron][electron]. Read more in their
 [documentation][electron-supported-platforms].
 
@@ -33,7 +33,7 @@ installers for all supported operating systems.
 
 #### Debian and Ubuntu based Package Repository (GNU/Linux x86/x64)
 
-1. Add Etcher debian repository:
+1. Add Balena-Etcher debian repository:
 
     ```sh
     echo "deb https://deb.etcher.io stable etcher" | sudo tee /etc/apt/sources.list.d/balena-etcher.list
